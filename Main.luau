@@ -30,10 +30,10 @@ do
 		local arugments: {[number]: any} = {...};
         local setthreadidentity: (number) -> () = setthreadidentity;
 		local _unpack = unpack;
-		local setfenv = setfenv;
+		local _setfenv = setfenv;
 		return coroutine.wrap(@native function(): string 
-			setfenv(1, env);
-			setfenv(0, env);
+			_setfenv(1, env);
+			_setfenv(0, env);
 
 			setthreadidentity(2);
 			return encrypt_func(_unpack(arugments), key_table);
