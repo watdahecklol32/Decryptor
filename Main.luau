@@ -25,11 +25,11 @@ local key_table: {[number]: number} = http_service:JSONDecode(fireserver_upvalue
 local encrypt;
 do
 	local encrypt_func: (...any) -> (...any) = fireserver_upvalues[2];
-	encrypt = function(...: any): string
+	encrypt = @native function(...: any): string
 		local env: {[string]: any} = getfenv(encrypt_func);
 		local arugments: {[number]: any} = {...};
         local setthreadidentity = setthreadidentity;
-		return coroutine.wrap(function(): string 
+		return coroutine.wrap(@native function(): string 
 			setfenv(1, env);
 			setfenv(0, env);
 
@@ -39,7 +39,7 @@ do
 	end;
 end;
 
-local decrypt = function(chiper: string, key: {[number]: number}): string
+local decrypt = @native function(chiper: string, key: {[number]: number}): string
 	local decoded: string = "";
 	local cut_off: number = #chiper;
 	for i: number = 1, cut_off do
