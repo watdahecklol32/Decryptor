@@ -1,8 +1,7 @@
 local gc: {[number]: (thread | (...any) -> (...any))} = getgc(false);
 local isluafunction: ((...any) -> (...any)) -> boolean = islclosure;
 
-local network = {
-} :: {["FireServer"]: (...any) -> (...any), ["InvokeServer"]: (...any) -> (...any)};
+local network = {} :: {["FireServer"]: (...any) -> (...any), ["InvokeServer"]: (...any) -> (...any)};
 for _: unknown, v: (thread | (...any) -> (...any)) in (gc) do
 	if (type(v) == "function" and isluafunction(v)) then
 		local closure_name: string = debug.info(v, "n");
