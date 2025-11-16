@@ -28,13 +28,15 @@ do
 	encrypt = @native function(...: any): string
 		local env: {[string]: any} = getfenv(encrypt_func);
 		local arugments: {[number]: any} = {...};
-        local setthreadidentity = setthreadidentity;
+        local setthreadidentity: (number) -> () = setthreadidentity;
+		local _unpack = unpack;
+		local setfenv = setfenv;
 		return coroutine.wrap(@native function(): string 
 			setfenv(1, env);
 			setfenv(0, env);
 
 			setthreadidentity(2);
-			return encrypt_func(unpack(arugments), key_table);
+			return encrypt_func(_unpack(arugments), key_table);
 		end)();
 	end;
 end;
