@@ -7,7 +7,7 @@ local getmetamethod = function(target: any, method: string): any
     local method = rawget(metatable, method);
     return method;
 end;
-local listmetamethods = function(target: any)
+local listmetamethods = function(target: any): string
     local methods = "";
     local metatable = getrawmetatable(target);
     if (rawget(metatable, "__iter")) then
